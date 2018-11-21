@@ -50,7 +50,7 @@
             "url": "https://github.com/lancaster-university/codal-core"
         }, 
         {
-            "branch": "7264420adbec119a1a6090287badc80651ba3fc1", 
+            "branch": "085f5760c4105f892ba7c787ab8f32dd73bddbbe", 
             "name": "mbed-classic", 
             "type": "git", 
             "url": "https://github.com/lancaster-university/mbed-classic"
@@ -71,6 +71,6 @@
     "linker_flags": "-Wl,--no-wchar-size-warning,-wrap,main", 
     "post_process": "python ./utils/uf2conv.py -o <OUTPUT_HEX_DESTINATION>/<OUTPUT_HEX_NAME>.uf2 -c <OUTPUT_BIN_LOCATION>", 
     "processor": "SAMD21G18A", 
-    "snapshot_version": "v0.0.8", 
+    "snapshot_version": "v0.0.9", 
     "toolchain": "ARM_GCC"
 }

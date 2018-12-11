@@ -21,10 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
-
-#include "mbed.h"
 #include "codal_target_hal.h"
+#include "Timer.h"
 #include "CodalDmesg.h"
+#include "CodalCompat.h"
 
 void target_enable_irq()
 {
@@ -41,19 +41,34 @@ void target_wait_for_event()
     __WFE();
 }
 
-void target_wait(uint32_t milliseconds)
+int target_seed_random(uint32_t rand)
 {
-    wait_ms(milliseconds);
+    return codal::seed_random(rand);
 }
 
-void target_wait_us(unsigned long us)
+int target_random(int max)
 {
-    wait_us(us);
+    return codal::random(max);
+}
+
+void target_wait_us(unsigned long us) {
+    codal::system_timer_wait_us(us);
+}
+
+void target_wait(uint32_t milliseconds)
+{
+    target_wait_us(milliseconds * 1000);
 }
 
 void target_reset()
 {
     NVIC_SystemReset();
+}
+// 128 bits starting from here...
+uint32_t* const serial_start = (uint32_t *)0x0080A00C;
+uint32_t target_get_serial()
+{
+    return *serial_start;
 }
 
 void target_panic(int statusCode)
